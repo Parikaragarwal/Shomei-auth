@@ -76,7 +76,7 @@ export async function loginHandler(req, res) {
 
     res.cookie("session_id", session_id, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       path: "/",
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000,
