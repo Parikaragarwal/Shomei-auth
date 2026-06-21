@@ -9,6 +9,8 @@ import * as routeHandlers from './src/routes.js';
 import { authLimiter, apiLimiter ,emailLimiter} from './src/middlewares/rateLimiter.js';
 
 const app = express();
+app.set('trust proxy', 1); // Trust Nginx reverse proxy for rate limiting
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
