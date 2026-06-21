@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-myuser}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
       POSTGRES_DB: ${POSTGRES_DB:-oidc_db}
+    ports:
+      - "127.0.0.1:5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
@@ -15,6 +17,8 @@ services:
   shomei_redis:
     image: redis:alpine
     container_name: shomei_redis
+    ports:
+      - "127.0.0.1:6380:6379"
     restart: unless-stopped
 
   shomei_backend:
