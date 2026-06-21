@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /home/deployer/Shomei-auth
+            cd /home/deployer/projects/Shomei-auth
             git pull origin main
             
             # Make sure the maintenance script is executable
