@@ -5,9 +5,9 @@ services:
     image: postgres:15
     container_name: shomei_postgres
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: oidc_db
+      POSTGRES_USER: ${POSTGRES_USER:-shomei_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shomei_password}
+      POSTGRES_DB: ${POSTGRES_DB:-shomei_db}
     ports:
       - "5433:5432"
     volumes:
@@ -30,7 +30,6 @@ services:
       - "3371:3371"
       - "4983:4983"
     environment:
-      - DATABASE_URL=postgresql://myuser:mypassword@shomei_postgres:5432/oidc_db
       - REDIS_URL=redis://shomei_redis:6379
       - NODE_ENV=production
       - PORT=3371
