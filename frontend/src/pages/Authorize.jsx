@@ -26,7 +26,8 @@ export default function Authorize() {
   const handleConfirm = () => {
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'http://localhost:3371/authorize/confirm';
+    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3371';
+    form.action = `${baseUrl}/authorize/confirm`;
     
     const idInput = document.createElement('input');
     idInput.type = 'hidden';

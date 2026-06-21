@@ -14,6 +14,7 @@ docker compose build --no-cache
 docker compose up -d
 
 echo "Starting Drizzle Studio on https://local.drizzle.studio"
-# Run drizzle studio in the background, making sure to use the node environment
+# Run drizzle studio in the background via npm workspaces
+npm run db:studio --workspace=backend &
 
 echo "System maintenance complete! All services restarted."

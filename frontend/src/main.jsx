@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3371';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3371';
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(

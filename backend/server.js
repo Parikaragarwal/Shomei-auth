@@ -12,24 +12,13 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.set("view engine", "ejs");
-
-app.set(
-    "views",
-    path.join(__dirname, "src", "views")
-);
-
-app.use(
-    express.static(
-        path.join(__dirname, "public")
-    )
-);
-
 app.use(express.json());
 app.use(urlencoded({extended:true}));
 app.use(cookieParser());
+
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: FRONTEND_URL,
   credentials: true
 }));
 
@@ -65,18 +54,6 @@ app.use(apiLimiter);
     app.get("/api/clients/:clientId/users", routeHandlers.getClientUsersHandler);
     app.get("/api/clients/:clientId/public", routeHandlers.getPublicClientInfoHandler);
 
-
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-
-app.get("/signup", (req, res) => {
-    res.render("signup");
-});
-
-app.get("/client-signup", (req, res) => {
-    res.render("client-signup");
-});
 
 
 app.listen(process.env.PORT || 3371, ()=>{
