@@ -18,9 +18,20 @@ app.use(express.json());
 app.use(urlencoded({extended:true}));
 app.use(cookieParser());
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
+  .split(",")
+  .map(url => url.trim().replace(/\/$/, ""));
+
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    const cleanOrigin = origin.replace(/\/$/, "");
+    if (allowedOrigins.includes(cleanOrigin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS policy error: Origin ${origin} not allowed by CORS`));
+  },
   credentials: true
 }));
 
