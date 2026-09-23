@@ -22,6 +22,8 @@ const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
   .split(",")
   .map(url => url.trim().replace(/\/$/, ""));
 
+console.log("Allowed CORS origins:", allowedOrigins);
+
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps, curl, server-to-server)
@@ -30,7 +32,8 @@ app.use(cors({
     if (allowedOrigins.includes(cleanOrigin)) {
       return callback(null, true);
     }
-    return callback(new Error(`CORS policy error: Origin ${origin} not allowed by CORS`));
+    console.warn(`[CORS Blocked] Origin: ${origin} is not in allowedOrigins:`, allowedOrigins);
+    return callback(null, false);
   },
   credentials: true
 }));
